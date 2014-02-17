@@ -2,7 +2,7 @@
 """
 Created on Tue Feb 11 11:34:57 2014
 
-@author: pruvolo
+@author: atproofer - mbocamazo
 """
 
 # you do not have to use these particular modules, but they may help

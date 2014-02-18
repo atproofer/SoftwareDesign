@@ -90,8 +90,8 @@ def evaluate_random_function(f, x, y):
         return (evaluate_random_function(f[1], x, y)-evaluate_random_function(f[2], x, y))/2
     if f[0]=='sigmoid':
         return 1.0/(1.0+exp(-evaluate_random_function(f[1], x, y)))        
-    print 'fail' #if the argument isn't caught  
-    
+    print 'fail to identify' #if the argument isn't caught  
+    print f[0]
     #unit test: ['prod', ['prod', ['x'], ['y']], ['prod', ['x'], ['y']]] should return (xy)^2
             
 def remap_interval(val, input_interval_start, input_interval_end, output_interval_start, output_interval_end):
@@ -100,28 +100,37 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
         is an affine one (i.e. output = input*c + b).
         Rescales and shifts the input value.    
     """
-    c = (output_interval_end-output_interval_start)/(input_interval_end-input_interval_start)
+    c = float(output_interval_end-output_interval_start)/(input_interval_end-input_interval_start)
     b = output_interval_start
-    return val*c+b      
+    return c*(val-input_interval_start)+b
     
 def generate_image():
+    """Generates an image using random functions methods. Saves output in folder."""
     xsize = 350
-    ysize = 350
+    ysize = 350 
     im = Image.new("RGB",(xsize,ysize))
-    channel=[]       
-    for i in range(3):
-        channel=channel+build_random_function(3,5)        
+    pix = im.load()
+    min_args = 16
+    max_args = 18
+    funcR=build_random_function(min_args,max_args)
+    funcG=build_random_function(min_args,max_args)
+    funcB=build_random_function(min_args,max_args)
     for i in range(xsize-1):
-        xcoord = remap_interval(i,0,xsize,ysize,-1,1)
+        xcoord = remap_interval(i,0,xsize,-1,1)         
         for j in range(ysize-1):
-            ycoord = remap_interval(j,0,xsize,ysize,-1,1)
-            r=evaluate_random_function(channel[0],xcoord,ycoord)
-            g=evaluate_random_function(channel[1],xcoord,ycoord)
-            b=evaluate_random_function(channel[2],xcoord,ycoord)
-            mappedR = remap_interval(r,-1,1,0,255)
-            mappedG = remap_interval(g,-1,1,0,255)
-            mappedB = remap_interval(b,-1,1,0,255)
+            ycoord = remap_interval(j,0,ysize,-1,1)            
+            r=evaluate_random_function(funcR,xcoord,ycoord)
+            g=evaluate_random_function(funcG,xcoord,ycoord)
+            b=evaluate_random_function(funcB,xcoord,ycoord)
+            mappedR = int(remap_interval(r,-1,1,0,255))
+            mappedG = int(remap_interval(g,-1,1,0,255))
+            mappedB = int(remap_interval(b,-1,1,0,255))
+            pix[i,j]=(mappedR,mappedG,mappedB)
+    im.save('ex7.png')            
             
+
+
+
             
             
             

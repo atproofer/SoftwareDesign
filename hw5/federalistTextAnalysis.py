@@ -330,6 +330,8 @@ def dispute_comparison(filter_list):
     """Displays results of comparison.  Order is paper, Jay, Hamilton, Madison score,
     highest score.  Experiment with filter list to see different approaches.
     Refer to the scholar dict for comparison with accepted results."""
+    [body,bag_of_words,hist] = iso_text('http://www.gutenberg.org/files/1404/1404-h/1404-h.htm','FederalistText.txt',"For the Independent Journal. Saturday, October 27, 1787","End of the Project Gutenberg EBook")
+    [doc_list, bag_list, hist_list]=letters_separate(body)
     filter_words=get_filter_words(filter_list)
     mean_Jay = calc_docs_mean2(Jay,filter_list)
     mean_Hamilton = calc_docs_mean2(Hamilton,filter_list)

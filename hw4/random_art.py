@@ -106,35 +106,26 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
     
 def generate_image():
     """Generates an image using random functions methods. Saves output in folder."""
-    xsize = 350
-    ysize = 350 
-    im = Image.new("RGB",(xsize,ysize))
-    pix = im.load()
-    min_args = 16
-    max_args = 18
-    funcR=build_random_function(min_args,max_args)
-    funcG=build_random_function(min_args,max_args)
-    funcB=build_random_function(min_args,max_args)
-    for i in range(xsize-1):
-        xcoord = remap_interval(i,0,xsize,-1,1)         
-        for j in range(ysize-1):
-            ycoord = remap_interval(j,0,ysize,-1,1)            
-            r=evaluate_random_function(funcR,xcoord,ycoord)
-            g=evaluate_random_function(funcG,xcoord,ycoord)
-            b=evaluate_random_function(funcB,xcoord,ycoord)
-            mappedR = int(remap_interval(r,-1,1,0,255))
-            mappedG = int(remap_interval(g,-1,1,0,255))
-            mappedB = int(remap_interval(b,-1,1,0,255))
-            pix[i,j]=(mappedR,mappedG,mappedB)
-    im.save('ex7.png')            
-            
-
-
-
-            
-            
-            
-            
-            
-            
-    
+    for k in range(10):
+        xsize = 350
+        ysize = 350 
+        im = Image.new("RGB",(xsize,ysize))
+        pix = im.load()
+        min_args = 12
+            max_args = 18
+        funcR=build_random_function(min_args,max_args)
+        funcG=build_random_function(min_args,max_args)
+        funcB=build_random_function(min_args,max_args)
+        for i in range(xsize-1):
+            xcoord = remap_interval(i,0,xsize,-1,1)         
+            for j in range(ysize-1):
+                ycoord = remap_interval(j,0,ysize,-1,1)            
+                r=evaluate_random_function(funcR,xcoord,ycoord)
+                g=evaluate_random_function(funcG,xcoord,ycoord)
+                b=evaluate_random_function(funcB,xcoord,ycoord)
+                mappedR = int(remap_interval(r,-1,1,0,255))
+                mappedG = int(remap_interval(g,-1,1,0,255))
+                mappedB = int(remap_interval(b,-1,1,0,255))
+                pix[i,j]=(mappedR,mappedG,mappedB)
+        name = 'ex4'+str(k)+'.png'
+        im.save(name)                  

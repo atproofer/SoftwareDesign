@@ -70,6 +70,15 @@ End of last text:
         clustered tightly, also currently mostly a black box, and don't yet know
         how to label points individually
         """
+
+"""
+SS: Mike, this is an outstanding job!! Well done. This is an extremely compelling project and your 
+    exectuion of this project by yourself in this limited amount of time is amazing. 
+
+    Your code is well structured, commented, and easy to follow. And it functionally is sounds. 
+
+    Great, great job :) 
+"""
         
 from pattern.web import *
 from pattern.en import *
@@ -78,6 +87,9 @@ import os
 import pickle
 import random
 import numpy as np
+
+## SS: Because you imported numpy as np, I needed to change your zeros() calls to np.zeros() to have 
+##     it working from the terminal
 
 from matplotlib import pyplot as plt
 from matplotlib.collections import LineCollection
@@ -262,6 +274,10 @@ def add_hists_freq(hist1,hist2,n):
             out_hist[key] += hist1[key]/float(n)
     return out_hist
     
+
+## SS: Since you're duplicating the first few lines of calc_does_mean() in calc_does_mean2()
+##     it might have been a good idea to merge the two into one function and then have another input
+##     that would specify which one you want to execute
     
 def calc_docs_mean(authored_list,filter_list):
     """Input a list of document numbers (one indexed) and filter_words,
@@ -307,7 +323,7 @@ def calc_docs_mean2(authored_list,filter_list):
 def generate_diff_matrix():
     """Loops through all the documents and returns a matrix of cosine similarities
     between them, returns diff_matrix"""
-    diff_matrix = zeros((85,85))    
+    diff_matrix = np.zeros((85,85))    
     for i in range(0,85):
         for j in range(0,85):
             diff_matrix[i,j]=cos_compare_docs(i+1,j+1)
@@ -318,7 +334,7 @@ def fast_generate_diff_matrix():
     [body,bag_of_words,hist] = iso_text('http://www.gutenberg.org/files/1404/1404-h/1404-h.htm','FederalistText.txt',"For the Independent Journal. Saturday, October 27, 1787","End of the Project Gutenberg EBook")
     [doc_list, bag_list, hist_list]=letters_separate(body)
     filter_words=get_filter_words(nonstandard_filters)
-    diff_matrix = zeros((85,85))    
+    diff_matrix = np.zeros((85,85))    
     for i in range(0,85):
         for j in range(0,85):
             hist1 = filter_function_words(hist_list[i],filter_words)
@@ -337,7 +353,7 @@ def dispute_comparison(filter_list):
     mean_Hamilton = calc_docs_mean2(Hamilton,filter_list)
     mean_Madison = calc_docs_mean2(Madison,filter_list)
     known_vector = [mean_Jay,mean_Hamilton,mean_Madison]
-    results_matrix = zeros((len(disputed_papers),5))
+    results_matrix = np.zeros((len(disputed_papers),5))
     for k in range(len(disputed_papers)):
         results_matrix[k,0]=disputed_papers[k]
         
